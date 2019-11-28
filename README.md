@@ -32,3 +32,5 @@ curl -X POST \
       	]
       }'
 ```
+#### Diagrama de la solución
+![Diagrama de la Solución](./diagrama.png)
