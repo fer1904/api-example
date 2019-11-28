@@ -13,6 +13,6 @@ public class JwtConfig {
     public static final String TOKEN_BEARER_PREFIX = "Bearer";
 
     private String secret;
-    private long expirationTime;
+    private int expirationTime;
     private String issuer;
 }

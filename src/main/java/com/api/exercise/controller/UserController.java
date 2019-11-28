@@ -1,44 +1,33 @@
 package com.api.exercise.controller;
 
 
+import com.api.exercise.dto.UserInput;
 import com.api.exercise.entities.User;
-import com.api.exercise.repository.UserRepository;
+import com.api.exercise.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
 @Validated
 public class UserController {
 
-    private UserRepository userRepository;
-
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping()
-    public void saveUser(@RequestBody @Valid User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-    }
-
-    @GetMapping()
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    @GetMapping("/{username}")
-    public User getUser(@PathVariable String username) {
-        return userRepository.findByEmail(username);
+    public ResponseEntity<User> saveUser(@RequestBody @Valid UserInput user) {
+        return ResponseEntity.ok(userService.saveUser(user));
     }
 }
