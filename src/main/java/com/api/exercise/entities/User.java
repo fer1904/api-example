@@ -3,8 +3,11 @@ package com.api.exercise.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -25,6 +28,9 @@ import java.util.List;
 @Entity
 @Data
 @EqualsAndHashCode(exclude = "phones")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
